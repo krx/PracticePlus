@@ -28,10 +28,7 @@ MAKE_HOOK_OFFSETLESS(LevelSelectionFlowCoordinator_StartLevel, void, Il2CppObjec
 
 MAKE_HOOK_OFFSETLESS(PracticeViewController_DidActivate, void, Il2CppObject* self, bool firstActivation, int activationType){
     PracticeViewController_DidActivate(self, firstActivation, activationType);
-    smsvc = FindObjectsOfTypeAllFirstOrDefault(GetSystemType("", "SoloModeSelectionViewController"));
     sldv = FindObjectsOfTypeAllFirstOrDefault(GetSystemType("", "StandardLevelDetailView"));
-    //Il2CppObject* difficultyBeatmap = *GetFieldValue(sldv, "_selectedDifficultyBeatmap");
-    //customNjs = *RunMethod<float>(difficultyBeatmap, "get_noteJumpMovementSpeed");
     if(!firstActivation) Destroy();
     CreateUIObjects(self);
 }
