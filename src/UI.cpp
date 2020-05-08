@@ -55,8 +55,6 @@ void CreateUIObjects(Il2CppObject* self){
     int diff = *RunMethod<int>(selectedDifficultyBeatmap, "get_difficultyRank");
     // Bit scuff but it works so fuck it
     if(songNamestr != oldsongname || diff != olddiff){ GetNJS(sldv); olddiff = diff; oldsongname = songNamestr;}
-    //Il2CppObject* backBtn = *GetFieldValue(smsvc, "_dismissButton");
-    //if(backBtn == nullptr) log(INFO, "Failed to get _dismissButton");
     Il2CppObject* slider = *GetFieldValue(self, "_songStartSlider");
     if(slider == nullptr) log(INFO, "Failed to get _songStartSlider");
     Il2CppObject* playButton = *GetFieldValue(self, "_playButton");
