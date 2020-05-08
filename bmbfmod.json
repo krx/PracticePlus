@@ -1,0 +1,25 @@
+{
+    "id": "NJSChanger",
+    "name": "NJS Changer",
+    "author": "L_",
+    "description": [
+        
+        "Allows you to customise the njs of a song in practice mode."
+        
+    ],
+    "category": "Gameplay",
+    "gameVersion": "1.9.0",
+    "version": "0.1.0",
+    "platform": "Quest",
+    "components": [
+        {
+            "type": "HookMod",
+            "installAction": {
+                "installLibraryFile": "libnjschanger.so"
+            },
+            "uninstallAction": {
+                "removeLibraryFile": "libnjschanger.so"
+            }
+        }
+    ]
+}
