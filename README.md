@@ -1,6 +1,6 @@
-# NJS Changer
+# Practice Plus
 
-Allows you to customise the njs of a song in practice mode.
+Allows you to customise the njs and offset of a song in practice mode.
 
 ## Credits
 
