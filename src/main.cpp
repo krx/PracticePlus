@@ -18,7 +18,7 @@ Il2CppObject* FindObjectsOfTypeAllFirstOrDefault(Il2CppReflectionType* Type)
 }
 
 MAKE_HOOK_OFFSETLESS(BOSMD_Init, void, Il2CppObject* self, int noteLinesCount, float startNoteJumpMovementSpeed, float startBPM, float noteJumpStartBeatOffset, float jumpOffsetY, Vector3 centerPos, Vector3 rightVec, Vector3 forwardVec){
-    BOSMD_Init(self, noteLinesCount, inPracticeMode ? customNjs : startNoteJumpMovementSpeed, startBPM, noteJumpStartBeatOffset, jumpOffsetY, centerPos, rightVec, forwardVec);
+    BOSMD_Init(self, noteLinesCount, inPracticeMode ? customNjs : startNoteJumpMovementSpeed, startBPM, inPracticeMode ? customOffset : noteJumpStartBeatOffset, jumpOffsetY, centerPos, rightVec, forwardVec);
 }
 
 MAKE_HOOK_OFFSETLESS(LevelSelectionFlowCoordinator_StartLevel, void, Il2CppObject* self, Il2CppObject* difficultyBeatmap, Il2CppObject* beforeSceneSwitchCallback, bool practice) {
@@ -28,7 +28,10 @@ MAKE_HOOK_OFFSETLESS(LevelSelectionFlowCoordinator_StartLevel, void, Il2CppObjec
 
 MAKE_HOOK_OFFSETLESS(PracticeViewController_DidActivate, void, Il2CppObject* self, bool firstActivation, int activationType){
     PracticeViewController_DidActivate(self, firstActivation, activationType);
+    smsvc = FindObjectsOfTypeAllFirstOrDefault(GetSystemType("", "SoloModeSelectionViewController"));
     sldv = FindObjectsOfTypeAllFirstOrDefault(GetSystemType("", "StandardLevelDetailView"));
+    //Il2CppObject* difficultyBeatmap = *GetFieldValue(sldv, "_selectedDifficultyBeatmap");
+    //customNjs = *RunMethod<float>(difficultyBeatmap, "get_noteJumpMovementSpeed");
     if(!firstActivation) Destroy();
     CreateUIObjects(self);
 }
