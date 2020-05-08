@@ -2,6 +2,7 @@
 #include "../extern/beatsaber-hook/shared/customui/customui.hpp"
 #include "../extern/beatsaber-hook/shared/utils/utils.h"
 #include <string>
+#include <cmath>
 
 using namespace il2cpp_utils;
 
@@ -28,13 +29,13 @@ Il2CppObject* increaseOffsetBtnGO;
 Il2CppObject* decreaseOffsetBtnGO;
 Il2CppObject* resetOffsetBtnGO;
 
-Vector2 njsTextPos = {9.0f, -1.0f};
+Vector2 njsTextPos = {10.0f, -1.0f};
 Vector3 increaseNjsBtnPos = {-27.0f, 5.75f, 0.0f};
 Vector3 decreaseNjsBtnPos = {-47.0f, 5.75f, 0.0f};
 Vector3 resetNjsBtnPos = {-18.0f, 5.75f, 0.0f};
 Vector3 scale ={0.3f, 0.3f, 1.0f};
 
-Vector2 offsetTextPos = {70.0f, -1.0f};
+Vector2 offsetTextPos = {69.0f, -1.0f};
 Vector3 increaseOffsetBtnPos = {38.0f, 5.75f, 0.0f};
 Vector3 decreaseOffsetBtnPos = {12.0f, 5.75f, 0.0f};
 Vector3 resetOffsetBtnPos = {47.0f, 5.75f, 0.0f};
@@ -48,7 +49,7 @@ void GetNJS(){
 void GetOffset(){
     Il2CppObject* beatmapDiff = *GetFieldValue(sldv, "_selectedDifficultyBeatmap");
     customOffset = *RunMethod<float>(beatmapDiff, "get_noteJumpStartBeatOffset");
-    log(INFO, "Offset: %s", std::to_string(customOffset).c_str());
+    log(INFO, "Offset: %s", std::to_string(round(customOffset*10)/10).c_str());
 }
 
 void increaseNJS(){
@@ -71,22 +72,22 @@ void resetNjs(){
 }
 
 void increaseOffset(){
-    if(customOffset < 5.0f){
+    if(customOffset < 4.9f){
         customOffset += 0.1f;
-        RunMethod(OffsetText.textMesh, "set_text", createcsstr("Offset: " + std::to_string(customOffset).substr(0, 4)));
+        RunMethod(OffsetText.textMesh, "set_text", createcsstr("Offset: " + std::to_string(round(customOffset*10)/10).substr(0, 4)));
     }
 }
 
 void decreaseOffset(){
-    if(customOffset > -5.0f){
+    if(customOffset > -4.9f){
         customOffset -= 0.1f;
-        RunMethod(OffsetText.textMesh, "set_text", createcsstr("Offset: " + std::to_string(customOffset).substr(0, 4)));
+        RunMethod(OffsetText.textMesh, "set_text", createcsstr("Offset: " + std::to_string(round(customOffset*10)/10).substr(0, 4)));
     }
 }
 
 void resetOffset(){
     GetOffset();
-    RunMethod(OffsetText.textMesh, "set_text", createcsstr("Offset: " + std::to_string(customOffset).substr(0, 4)));
+    RunMethod(OffsetText.textMesh, "set_text", createcsstr("Offset: " + std::to_string(round(customOffset*10)/10).substr(0, 4)));
 }
 
 void CreateNJSUI(Il2CppObject* pvc, Il2CppObject* parent, Il2CppObject* playButton){
@@ -181,7 +182,7 @@ void CreateOffsetUI(Il2CppObject* pvc, Il2CppObject* parent, Il2CppObject* playB
     OffsetText.anchoredPosition = offsetTextPos;
     OffsetText.fontSize = 4.5f;
     OffsetText.parentTransform = parent;
-    OffsetText.text = "Offset: " + std::to_string(customOffset).substr(0, 4);
+    OffsetText.text = "Offset: " + std::to_string(round(customOffset*10)/10).substr(0, 4);
     OffsetText.create();
 }
 
