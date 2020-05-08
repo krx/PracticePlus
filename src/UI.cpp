@@ -7,8 +7,6 @@ using namespace il2cpp_utils;
 
 CustomUI::TextObject NJSText;
 
-bool created = false;
-
 float customNjs = 0;
 
 std::string oldsongname;
