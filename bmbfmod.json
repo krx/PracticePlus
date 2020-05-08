@@ -1,10 +1,10 @@
 {
-    "id": "NJSChanger",
-    "name": "NJS Changer",
+    "id": "PracticePlus",
+    "name": "Practice Plus",
     "author": "L_",
     "description": [
         
-        "Allows you to customise the njs of a song in practice mode."
+        "Allows you to customise the njs and offset of a song in practice mode."
         
     ],
     "category": "Gameplay",
@@ -15,10 +15,10 @@
         {
             "type": "HookMod",
             "installAction": {
-                "installLibraryFile": "libnjschanger.so"
+                "installLibraryFile": "libpracticeplus.so"
             },
             "uninstallAction": {
-                "removeLibraryFile": "libnjschanger.so"
+                "removeLibraryFile": "libpracticeplus.so"
             }
         }
     ]
