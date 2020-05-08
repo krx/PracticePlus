@@ -7,6 +7,7 @@
 using namespace il2cpp_utils;
 
 extern float customNjs;
+extern float customOffset;
 extern Il2CppObject* sldv;
 void CreateUIObjects(Il2CppObject* self);
 void Destroy();
