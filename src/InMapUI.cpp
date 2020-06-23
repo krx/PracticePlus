@@ -107,10 +107,8 @@ void CreateInMapUI(Il2CppObject* self){
     pos = {pos.x, pos.y + 0.175f, pos.z};
     RunMethod(pauseTransform, "set_localPosition", pos);
     
-    CreateSpeedUI(continueButton, canvTrans);
     CreateNJSUI(continueButton, canvTrans);
     CreateOffsetUI(continueButton, canvTrans);
-    CreateLooperUI(canvTrans);
 }
 
 
@@ -143,15 +141,6 @@ void DecreaseOffsetPause(){
     if(customOffset > -9.9) customOffset -= 0.1f;
     OffsetTextPause.set(customOffset == defaultOffset ? "<u>" + std::to_string(customOffset).substr(0,customOffset < 0 ? 4 : 3) + "</u>" : std::to_string(customOffset).substr(0, customOffset < 0 ? 4 : 3));
     UpdateSpawnMovementData();
-}
-
-void IncreaseSpeedPause(){
-    if(customSpeed < 1.95f) customSpeed += 0.05f;
-    SpeedTextPause.set(customSpeed == defaultSpeed ? "<u>" + std::to_string((int)(customSpeed*100)) + "%</u>" : std::to_string((int)(customSpeed*100)) + "%");
-}
-void DecreaseSpeedPause(){
-    if(customSpeed > 0.55f) customSpeed -= 0.05f;
-    SpeedTextPause.set(customSpeed == defaultSpeed ? "<u>" + std::to_string((int)(customSpeed*100)) + "%</u>" : std::to_string((int)(customSpeed*100)) + "%");
 }
 
 void DestroyInMapUI(){
