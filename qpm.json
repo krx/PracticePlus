@@ -1,0 +1,33 @@
+{
+  "sharedDir": "shared",
+  "dependenciesDir": "extern",
+  "info": {
+    "name": "PracticePlus",
+    "id": "PracticePlus",
+    "version": "0.3.0",
+    "url": null,
+    "additionalData": {}
+  },
+  "dependencies": [
+    {
+      "id": "beatsaber-hook",
+      "versionRange": "^0.8.4",
+      "additionalData": {
+        "extraFiles": [
+          "src/inline-hook"
+        ]
+      }
+    },
+    {
+      "id": "custom-ui",
+      "versionRange": "^0.1.4",
+      "additionalData": {}
+    },
+    {
+      "id": "codegen",
+      "versionRange": "^0.4.0",
+      "additionalData": {}
+    }
+  ],
+  "additionalData": {}
+}

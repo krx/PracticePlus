@@ -1,10 +1,6 @@
 # Builds a .zip file for loading with BMBF
-$NDKPath = Get-Content $PSScriptRoot/ndkpath.txt
+& $PSScriptRoot/build.ps1
 
-$buildScript = "$NDKPath/build/ndk-build"
-if (-not ($PSVersionTable.PSEdition -eq "Core")) {
-    $buildScript += ".cmd"
+if ($?) {
+    Compress-Archive -Path "./libs/arm64-v8a/libPracticePlus.so", "./libs/arm64-v8a/libbeatsaber-hook_0_8_4.so", "./libs/arm64-v8a/libcustom-ui_0_1_4.so", "./bmbfmod.json" -DestinationPath "./PracticePlus_v0.3.0.zip" -Update
 }
-
-& $buildScript NDK_PROJECT_PATH=$PSScriptRoot APP_BUILD_SCRIPT=$PSScriptRoot/Android.mk NDK_APPLICATION_MK=$PSScriptRoot/Application.mk
-Compress-Archive -Path "./libs/arm64-v8a/libpracticeplus.so","./bmbfmod.json","./extern/beatsaber-hook/libs/arm64-v8a/libbeatsaber-hook_2019_2_1f1_0_1_1.so","./extern/BeatSaberQuestCustomUI/libs/arm64-v8a/libcustomui.so" -DestinationPath "./practiceplus_v0.2.0.zip" -Update
