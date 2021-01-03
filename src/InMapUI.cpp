@@ -1,10 +1,9 @@
-#include "../include/mod_interface.hpp"
-#include "../include/main.hpp"
+#include "main.hpp"
 
-#include "../extern/beatsaber-hook/shared/utils/il2cpp-utils.hpp"
-#include "../extern/beatsaber-hook/shared/utils/il2cpp-functions.hpp"
-#include "../extern/beatsaber-hook/shared/utils/utils.h"
-#include "../extern/BeatSaberQuestCustomUI/shared/customui.hpp"
+#include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
+#include "beatsaber-hook/shared/utils/il2cpp-functions.hpp"
+#include "beatsaber-hook/shared/utils/utils.h"
+#include "custom-ui/shared/customui.hpp"
 #include <cmath>
 
 
@@ -27,7 +26,7 @@ CustomButton OffsetDecreasePause;
 
 
 
-void CreateNJSUI(Il2CppObject* button, Il2CppObject* parent){
+void CreateNJSUI(UnityEngine::GameObject* button, UnityEngine::Transform* parent){
     NJSIncreasePause.parent = button;
     NJSIncreasePause.parentTransform = parent;
     NJSIncreasePause.text = ">";
@@ -57,7 +56,7 @@ void CreateNJSUI(Il2CppObject* button, Il2CppObject* parent){
     NJSTextPause.create();
 }
 
-void CreateOffsetUI(Il2CppObject* button, Il2CppObject* parent){
+void CreateOffsetUI(UnityEngine::GameObject* button, UnityEngine::Transform* parent){
     OffsetIncreasePause.parent = button;
     OffsetIncreasePause.parentTransform = parent;
     OffsetIncreasePause.text = ">";
@@ -107,8 +106,8 @@ void CreateInMapUI(Il2CppObject* self){
     pos = {pos.x, pos.y + 0.175f, pos.z};
     RunMethod(pauseTransform, "set_localPosition", pos);
     
-    CreateNJSUI(continueButton, canvTrans);
-    CreateOffsetUI(continueButton, canvTrans);
+    // CreateNJSUI(continueButton, canvTrans);
+    // CreateOffsetUI(continueButton, canvTrans);
 }
 
 
