@@ -1,6 +1,6 @@
 # PracticePlus
 
-This mod allows you to set the NJS and note offset for a song in practice mode
+This mod allows you to set the NJS and note offset for a song in practice mode. This also expands the range of song speeds that can be selected from 50%-200% to 25%-300%.
 
 ## Credits
 

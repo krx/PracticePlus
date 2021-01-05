@@ -5,7 +5,7 @@
   "author": "krx",
   "description": [
     "Updated version of the PracticePlus mod originally created by L_ : https://github.com/L025/PracticePlus",
-    "This mod allows you to set the NJS and note offset for a song in practice mode, either from the practice menu or the pause menu."
+    "This mod allows you to set the NJS and note offset for a song in practice mode, and lets you play the song anywhere from 25%-300% speed"
   ],
   "category": "Gameplay",
   "gameVersion": "1.13.0",

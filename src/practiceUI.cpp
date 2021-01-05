@@ -80,7 +80,7 @@ void PracticeMenuUI::createOffsetUI(UnityEngine::GameObject* button, UnityEngine
 }
 
 /**
- * Expands the range of song speeds than can be selected from 50%-200% to 25%-300%
+ * Expands the range of song speeds that can be selected from 50%-200% to 25%-300%
  */
 void PracticeMenuUI::updateSpeedSlider() {
     getLogger().info("Updating speed slider range");
