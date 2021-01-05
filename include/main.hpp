@@ -53,7 +53,7 @@ class CustomButton {
         UnityEngine::GameObject* parent = nullptr;
         UnityEngine::Transform* parentTransform = nullptr;
         Polyglot::LocalizedTextMeshProUGUI* TMPLocalizer = nullptr;
-        UnityEngine::Vector3 sizeDelta = {0, 0, 0};
+        UnityEngine::Vector3 relativePos = {0, 0, 0};
         UnityEngine::Vector3 scale = {1.0f, 1.0f, 1.0f};
         UnityEngine::Vector3 rotation = {0, 0, 0};
         float fontSize = 4.0f;
@@ -100,7 +100,7 @@ class CustomButton {
                 buttonTransform = button->get_transform();
                 buttonTransform->set_parent(parentTransform);
                 buttonTransform->set_localScale(scale);
-                buttonTransform->set_localPosition(sizeDelta);
+                buttonTransform->set_localPosition(relativePos);
 
                 TMP = button->GetComponentInChildren<HMUI::CurvedTextMeshPro*>();
                 TMPLocalizer = button->GetComponentInChildren<Polyglot::LocalizedTextMeshProUGUI*>();

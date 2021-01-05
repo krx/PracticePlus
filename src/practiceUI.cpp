@@ -29,7 +29,7 @@ void PracticeMenuUI::createNJSUI(UnityEngine::GameObject* button, UnityEngine::T
     NJSIncrease.text = ">";
     NJSIncrease.scale = {0.2f, 0.75f, 1.0f};
     NJSIncrease.onPress = increaseNJS;
-    NJSIncrease.sizeDelta = {-27.0f, -50.0f, 0.0f};
+    NJSIncrease.relativePos = {-27.0f, -50.0f, 0.0f};
     NJSIncrease.fontSize = 5;
     NJSIncrease.create();
 
@@ -38,7 +38,7 @@ void PracticeMenuUI::createNJSUI(UnityEngine::GameObject* button, UnityEngine::T
     NJSDecrease.text = "<";
     NJSDecrease.scale = {0.2f, 0.75f, 1.0f};
     NJSDecrease.onPress = decreaseNJS;
-    NJSDecrease.sizeDelta = {-53.0f, -50.0f, 0.0f};
+    NJSDecrease.relativePos = {-53.0f, -50.0f, 0.0f};
     NJSDecrease.fontSize = 5;
     NJSDecrease.create();
 
@@ -47,7 +47,7 @@ void PracticeMenuUI::createNJSUI(UnityEngine::GameObject* button, UnityEngine::T
     NJSReset.text = "";
     NJSReset.scale = {0.515f, 0.75f, 1.0f};
     NJSReset.onPress = resetNJS;
-    NJSReset.sizeDelta = {-40.0f, -50.0f, 0.0f};
+    NJSReset.relativePos = {-40.0f, -50.0f, 0.0f};
     NJSReset.create();
 }
 
@@ -59,7 +59,7 @@ void PracticeMenuUI::createOffsetUI(UnityEngine::GameObject* button, UnityEngine
     OffsetIncrease.text = ">";
     OffsetIncrease.scale = {0.2f, 0.75f, 1.0f};
     OffsetIncrease.onPress = increaseOffset;
-    OffsetIncrease.sizeDelta = {51.0f, -50.0f, 0.0f};
+    OffsetIncrease.relativePos = {51.0f, -50.0f, 0.0f};
     OffsetIncrease.fontSize = 5;
     OffsetIncrease.create();
 
@@ -68,7 +68,7 @@ void PracticeMenuUI::createOffsetUI(UnityEngine::GameObject* button, UnityEngine
     OffsetDecrease.text = "<";
     OffsetDecrease.scale = {0.2f, 0.75f, 1.0f};
     OffsetDecrease.onPress = decreaseOffset;
-    OffsetDecrease.sizeDelta = {25.0f, -50.0f, 0.0f};
+    OffsetDecrease.relativePos = {25.0f, -50.0f, 0.0f};
     OffsetDecrease.fontSize = 5;
     OffsetDecrease.create();
 
@@ -77,7 +77,7 @@ void PracticeMenuUI::createOffsetUI(UnityEngine::GameObject* button, UnityEngine
     OffsetReset.text = "";
     OffsetReset.scale = {0.515f, 0.75f, 1.0f};
     OffsetReset.onPress = resetOffset;
-    OffsetReset.sizeDelta = {38.0f, -50.0f, 0.0f};
+    OffsetReset.relativePos = {38.0f, -50.0f, 0.0f};
     OffsetReset.create();
 }
 
@@ -85,21 +85,16 @@ void PracticeMenuUI::createOffsetUI(UnityEngine::GameObject* button, UnityEngine
  * Expands the range of song speeds than can be selected from 50%-200% to 25%-300%
  */
 void PracticeMenuUI::updateSpeedSlider() {
-    if (!this->created) {
-        getLogger().info("Updating speed slider range");
-        UnityEngine::GameObject *slider_obj = UnityEngine::GameObject::Find(il2cpp_utils::createcsstr("PracticePanel/Speed/RangeValuesTextSlider"));
-        HMUI::PercentSlider *slider = slider_obj->GetComponentInChildren<HMUI::PercentSlider*>();
-        slider->set_minValue(SPEED_MIN);
-        slider->set_maxValue(SPEED_MAX);
-        slider->set_numberOfSteps(1 + (int)((SPEED_MAX - SPEED_MIN) / SPEED_STEP));
-        slider->SetNormalizedValue(slider->NormalizeValue(1.0));
-    }
+    getLogger().info("Updating speed slider range");
+    UnityEngine::GameObject *slider_obj = UnityEngine::GameObject::Find(il2cpp_utils::createcsstr("PracticePanel/Speed/RangeValuesTextSlider"));
+    HMUI::PercentSlider *slider = slider_obj->GetComponentInChildren<HMUI::PercentSlider*>();
+    slider->set_minValue(SPEED_MIN);
+    slider->set_maxValue(SPEED_MAX);
+    slider->set_numberOfSteps(1 + (int)((SPEED_MAX - SPEED_MIN) / SPEED_STEP));
+    slider->SetNormalizedValue(slider->NormalizeValue(1.0));
 }
 
 void PracticeMenuUI::createUI() {
-    if (this->created) {
-        this->destroyUI();
-    }
 
     getLogger().info("Creating practice UI");
 
@@ -111,14 +106,16 @@ void PracticeMenuUI::createUI() {
         this->oldLvlID = STATE.levelID;
     }
 
-    UnityEngine::GameObject *playButton = UnityEngine::GameObject::Find(il2cpp_utils::createcsstr("PracticeViewController/PlayButton"));
-    UnityEngine::GameObject *slider = UnityEngine::GameObject::Find(il2cpp_utils::createcsstr("SongStart"));
-    UnityEngine::Transform* parent = slider->get_transform()->get_parent();
+    if (!this->created) {
+        UnityEngine::GameObject *playButton = UnityEngine::GameObject::Find(il2cpp_utils::createcsstr("PracticeViewController/PlayButton"));
+        UnityEngine::GameObject *slider = UnityEngine::GameObject::Find(il2cpp_utils::createcsstr("SongStart"));
+        UnityEngine::Transform* parent = slider->get_transform()->get_parent();
 
-    this->createNJSUI(playButton, parent);
-    this->createOffsetUI(playButton, parent);
-    this->updateSpeedSlider();
-    this->created = true;
+        this->createNJSUI(playButton, parent);
+        this->createOffsetUI(playButton, parent);
+        this->updateSpeedSlider();
+        this->created = true;
+    }
 
     updateNJS(STATE.customNjs);
     updateOffset(STATE.customOffset);
