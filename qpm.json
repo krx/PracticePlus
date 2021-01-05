@@ -19,11 +19,6 @@
       }
     },
     {
-      "id": "custom-ui",
-      "versionRange": "^0.1.4",
-      "additionalData": {}
-    },
-    {
       "id": "codegen",
       "versionRange": "^0.4.0",
       "additionalData": {}

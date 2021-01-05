@@ -29,10 +29,14 @@
 #include "GlobalNamespace/StandardLevelDetailView.hpp"
 #include "GlobalNamespace/IDifficultyBeatmap.hpp"
 #include "GlobalNamespace/IBeatmapLevel.hpp"
+#include "GlobalNamespace/PauseMenuManager.hpp"
 
 // Define these functions here so that we can easily read configuration and log information from other files
 Configuration& getConfig();
 const Logger& getLogger();
+
+template<class T>
+T FindObjectsOfTypeAllFirstOrDefault();
 
 typedef struct practice_state {
     float customNjs;

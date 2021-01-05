@@ -33,15 +33,6 @@ T FindObjectsOfTypeAllFirstOrDefault() {
     return nullptr;
 }
 
-// MAKE_HOOK_OFFSETLESS(PauseMenuManager_ShowMenu, void, Il2CppObject* self) {
-//     PauseMenuManager_ShowMenu(self);
-//     _spawnController = FindObjectsOfTypeAllFirstOrDefault(GetSystemType("", "BeatmapObjectSpawnController"));
-//     if(!created && STATE.inPracticeMode){
-//         CreateInMapUI(self);
-//         created = true;
-//     }
-// }
-
 MAKE_HOOK_OFFSETLESS(BOSMD_Init, void, Il2CppObject* self, int noteLinesCount, float startNoteJumpMovementSpeed, float startBPM, float noteJumpStartBeatOffset, float jumpOffsetY, Vector3 rightVec, Vector3 forwardVec) {
     getLogger().info("BOSMD_Init");
     BOSMD_Init(self,
@@ -62,8 +53,6 @@ MAKE_HOOK_OFFSETLESS(LevelSelectionFlowCoordinator_StartLevel, void,  Il2CppObje
 
 MAKE_HOOK_OFFSETLESS(PracticeViewController_DidActivate, void, GlobalNamespace::PracticeViewController* self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling) {
     getLogger().info("PVC_DidActivate");
-    // if(created) DestroyInMapUI();
-    // created = false;
 
     GlobalNamespace::StandardLevelDetailView *sldv = FindObjectsOfTypeAllFirstOrDefault<GlobalNamespace::StandardLevelDetailView*>();
     STATE.defaultOffset = sldv->get_selectedDifficultyBeatmap()->get_noteJumpStartBeatOffset();
@@ -86,7 +75,6 @@ extern "C" void setup(ModInfo& info) {
 
 extern "C" void load() {
     il2cpp_functions::Init();
-    // INSTALL_HOOK_OFFSETLESS(PauseMenuManager_ShowMenu, il2cpp_utils::FindMethodUnslsafe("", "PauseMenuManager", "ShowMenu", 0));
     INSTALL_HOOK_OFFSETLESS(PracticeViewController_DidActivate, il2cpp_utils::FindMethodUnsafe("", "PracticeViewController", "DidActivate", 3));
     INSTALL_HOOK_OFFSETLESS(LevelSelectionFlowCoordinator_StartLevel, il2cpp_utils::FindMethodUnsafe("", "SinglePlayerLevelSelectionFlowCoordinator", "StartLevel", 2));
     INSTALL_HOOK_OFFSETLESS(BOSMD_Init, il2cpp_utils::FindMethodUnsafe("", "BeatmapObjectSpawnMovementData", "Init", 7));

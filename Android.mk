@@ -35,12 +35,6 @@ LOCAL_EXPORT_C_INCLUDES := extern/beatsaber-hook
 LOCAL_SRC_FILES := extern/libbeatsaber-hook_0_8_4.so
 LOCAL_CPP_FEATURES += exceptions
 include $(PREBUILT_SHARED_LIBRARY)
-# Creating prebuilt for dependency: custom-ui - version: 0.1.4
-include $(CLEAR_VARS)
-LOCAL_MODULE := custom-ui_0_1_4
-LOCAL_EXPORT_C_INCLUDES := extern/custom-ui
-LOCAL_SRC_FILES := extern/libcustom-ui_0_1_4.so
-include $(PREBUILT_SHARED_LIBRARY)
 # Creating prebuilt for dependency: codegen - version: 0.4.0
 include $(CLEAR_VARS)
 LOCAL_MODULE := codegen_0_4_0
@@ -55,7 +49,6 @@ LOCAL_SRC_FILES += $(call rwildcard,extern/beatsaber-hook/src/inline-hook,*.cpp)
 LOCAL_SRC_FILES += $(call rwildcard,extern/beatsaber-hook/src/inline-hook,*.c)
 LOCAL_SHARED_LIBRARIES += modloader
 LOCAL_SHARED_LIBRARIES += beatsaber-hook_0_8_4
-LOCAL_SHARED_LIBRARIES += custom-ui_0_1_4
 LOCAL_SHARED_LIBRARIES += codegen_0_4_0
 LOCAL_LDLIBS += -llog
 LOCAL_CFLAGS += -I'extern/libil2cpp/il2cpp/libil2cpp' -DID='"PracticePlus"' -DVERSION='"0.3.0"' -I'./shared' -I'./extern' -isystem'extern/codegen/include'

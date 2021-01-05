@@ -52,8 +52,6 @@ void PracticeMenuUI::createNJSUI(UnityEngine::GameObject* button, UnityEngine::T
 }
 
 void PracticeMenuUI::createOffsetUI(UnityEngine::GameObject* button, UnityEngine::Transform* parent) {
-    Vector2 OffsetTextPos = {69.0f, -1.0f};
-
     OffsetIncrease.parent = button;
     OffsetIncrease.parentTransform = parent;
     OffsetIncrease.text = ">";
@@ -95,7 +93,6 @@ void PracticeMenuUI::updateSpeedSlider() {
 }
 
 void PracticeMenuUI::createUI() {
-
     getLogger().info("Creating practice UI");
 
     // Reset NJS/offset states if the map changed
@@ -124,13 +121,17 @@ void PracticeMenuUI::createUI() {
 void PracticeMenuUI::destroyUI() {
     getLogger().info("Destroying practice UI");
 
-    OffsetIncrease.destroy();
-    OffsetDecrease.destroy();
-    OffsetReset.destroy();
+    if (this->created) {
+        OffsetIncrease.destroy();
+        OffsetDecrease.destroy();
+        OffsetReset.destroy();
 
-    NJSIncrease.destroy();
-    NJSDecrease.destroy();
-    NJSReset.destroy();
+        NJSIncrease.destroy();
+        NJSDecrease.destroy();
+        NJSReset.destroy();
+
+        this->created = false;
+    }
 }
 
 void updateNJS(float njs) {
