@@ -10,8 +10,8 @@ void increaseOffset();
 void decreaseOffset();
 void resetOffset();
 
-void updateNJSText();
-void updateOffsetText();
+void updateNJS(float njs);
+void updateOffset(float offset);
 
 class PracticeMenuUI {
 public:

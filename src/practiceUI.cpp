@@ -49,8 +49,6 @@ void PracticeMenuUI::createNJSUI(UnityEngine::GameObject* button, UnityEngine::T
     NJSReset.onPress = resetNJS;
     NJSReset.sizeDelta = {-40.0f, -50.0f, 0.0f};
     NJSReset.create();
-
-    updateNJSText();
 }
 
 void PracticeMenuUI::createOffsetUI(UnityEngine::GameObject* button, UnityEngine::Transform* parent) {
@@ -81,8 +79,6 @@ void PracticeMenuUI::createOffsetUI(UnityEngine::GameObject* button, UnityEngine
     OffsetReset.onPress = resetOffset;
     OffsetReset.sizeDelta = {38.0f, -50.0f, 0.0f};
     OffsetReset.create();
-
-    updateOffsetText();
 }
 
 /**
@@ -123,6 +119,9 @@ void PracticeMenuUI::createUI() {
     this->createOffsetUI(playButton, parent);
     this->updateSpeedSlider();
     this->created = true;
+
+    updateNJS(STATE.customNjs);
+    updateOffset(STATE.customOffset);
 }
 
 void PracticeMenuUI::destroyUI() {
@@ -137,7 +136,9 @@ void PracticeMenuUI::destroyUI() {
     NJSReset.destroy();
 }
 
-void updateNJSText() {
+void updateNJS(float njs) {
+    STATE.customNjs = njs;
+
     std::stringstream ss;
     ss << "NJS : ";
     if (std::fmod(STATE.customNjs, 1) == 0.0) {
@@ -148,46 +149,46 @@ void updateNJSText() {
     NJSReset.setText(ss.str());
 }
 
-void updateOffsetText() {
+void updateOffset(float offset) {
+    STATE.customOffset = offset;
+
     std::stringstream ss;
     ss << "Offset : " << std::fixed << std::setprecision(1) << STATE.customOffset;
     OffsetReset.setText(ss.str());
 }
 
+/**
+ * UI BUTTON CALLBACKS
+ */
+
 void increaseNJS(){
-    if(STATE.customNjs < 99){
-        STATE.customNjs++;
-        updateNJSText();
+    if (STATE.customNjs < 99) {
+        updateNJS(STATE.customNjs + 1);
     }
 }
 
-void decreaseNJS(){
-    if(STATE.customNjs > 1){
-        STATE.customNjs--;
-        updateNJSText();
+void decreaseNJS() {
+    if (STATE.customNjs > 1) {
+        updateNJS(STATE.customNjs - 1);
     }
 }
 
-void resetNJS(){
-    STATE.customNjs = STATE.defaultNjs;
-    updateNJSText();
+void resetNJS() {
+    updateNJS(STATE.defaultNjs);
 }
 
-void increaseOffset(){
-    if(STATE.customOffset < 9.9f){
-        STATE.customOffset += 0.1f;
-        updateOffsetText();
+void increaseOffset() {
+    if (STATE.customOffset < 9.9f) {
+        updateOffset(STATE.customOffset + 0.1f);
     }
 }
 
-void decreaseOffset(){
-    if(STATE.customOffset > -9.9f){
-        STATE.customOffset -= 0.1f;
-        updateOffsetText();
+void decreaseOffset() {
+    if (STATE.customOffset > -9.9f) {
+        updateOffset(STATE.customOffset - 0.1f);
     }
 }
 
-void resetOffset(){
-    STATE.customOffset = STATE.defaultOffset;
-    updateOffsetText();
+void resetOffset() {
+    updateOffset(STATE.defaultOffset);
 }
