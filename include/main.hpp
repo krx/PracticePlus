@@ -10,7 +10,6 @@
 #include "beatsaber-hook/shared/utils/typedefs.h"
 #include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
 #include "beatsaber-hook/shared/utils/il2cpp-functions.hpp"
-#include "custom-ui/shared/customui.hpp"
 
 #include "UnityEngine/Transform.hpp"
 #include "UnityEngine/GameObject.hpp"
@@ -26,36 +25,25 @@
 #include "UnityEngine/Events/UnityAction.hpp"
 #include "TMPro/TextOverflowModes.hpp"
 
+#include "GlobalNamespace/PracticeViewController.hpp"
+#include "GlobalNamespace/StandardLevelDetailView.hpp"
+#include "GlobalNamespace/IDifficultyBeatmap.hpp"
+#include "GlobalNamespace/IBeatmapLevel.hpp"
+
 // Define these functions here so that we can easily read configuration and log information from other files
 Configuration& getConfig();
 const Logger& getLogger();
 
-using namespace il2cpp_utils;
-using namespace CustomUI;
-
-extern Il2CppObject* _spawnController;
-
-extern Il2CppObject* sldv;
-
-Il2CppObject* FindObjectsOfTypeAllFirstOrDefault(Il2CppReflectionType* Type);
-
-void DestroyPracticeUI();
-void DestroyInMapUI();
-
-void CreatePracticeMenuUI(Il2CppObject* self, int diff);
-void CreateInMapUI(Il2CppObject* self);
-void UpdateSpeedShit();
-
-extern float customNjs;
-extern float customOffset;
-extern float customSpeed;
-extern float defaultNjs;
-extern float defaultOffset;
-extern float defaultSpeed;
-extern float maxSongStartTime;
-
-extern int diff;
-extern bool inPracticeMode;
+typedef struct practice_state {
+    float customNjs;
+    float customOffset;
+    float defaultNjs;
+    float defaultOffset;
+    int difficulty;
+    bool inPracticeMode;
+    std::string levelID;
+} practice_state_t;
+extern practice_state_t STATE;
 
 class CustomButton {
     public:
@@ -71,12 +59,12 @@ class CustomButton {
         float fontSize = 4.0f;
         std::string text = "Custom Button UI";
         function_ptr_t<void> onPress;
- 
+
         bool isCreated = false;
- 
+
         // void setParentAndTransform(UnityEngine::GameObject* Obj, int parentedAmount) {
         //     parent = Obj;
- 
+
         //     if(parentedAmount < 1) {
         //         parentedAmount = 1;
         //     }
@@ -90,7 +78,7 @@ class CustomButton {
         //     }
         //     parentTransform = parents[parents.size()-1];
         // }
- 
+
         // void setParentTransform(Il2CppObject* Obj, int parentedAmount) {
         //     if(parentedAmount < 1) {
         //         parentedAmount = 1;
@@ -105,7 +93,7 @@ class CustomButton {
         //     }
         //     parentTransform = parents[parents.size()-1];
         // }
- 
+
         void create() {
             if(!isCreated) {
                 button = UnityEngine::UI::Button::Instantiate(parent);
@@ -124,7 +112,7 @@ class CustomButton {
 
                 // Undo the text scaling that was done when the overall button was scaled
                 TMP->get_transform()->set_localScale(UnityEngine::Vector3(1.0/scale.x, 1.0/scale.y, 1.0));
-                
+
                 HMUI::NoTransitionsButton *ui_button = button->GetComponentInChildren<HMUI::NoTransitionsButton*>();
                 auto actionToRun = il2cpp_utils::MakeDelegate(il2cpp_functions::class_get_type(il2cpp_utils::GetClassFromName("UnityEngine.Events", "UnityAction")), (Il2CppObject*)nullptr, onPress);
                 ui_button->get_onClick()->AddListener(reinterpret_cast<UnityEngine::Events::UnityAction*>(actionToRun));
@@ -133,22 +121,22 @@ class CustomButton {
                 getLogger().info("Already created.");
             }
         }
- 
+
         void setText(std::string newText) {
             TMP->set_text(il2cpp_utils::createcsstr(newText));
         }
- 
+
         void setActive(bool isActive) {
-            RunMethod(button, "SetActive", isActive);
+            button->SetActive(isActive);
         }
- 
-        void setPos(Vector3 pos) {//Doesnt work yet, work on it more later
-            il2cpp_utils::RunMethod(buttonTransform, "set_localPosition", pos);
+
+        void setPos(UnityEngine::Vector3 pos) { // Doesnt work yet, work on it more later
+            buttonTransform->set_localPosition(pos);
         }
- 
+
         void destroy() {
             if(button != nullptr) {
-                RunMethod("UnityEngine", "Object", "Destroy", button);
+                UnityEngine::Object::Destroy(button);
                 button = nullptr;
                 TMP = nullptr;
                 parentTransform = nullptr;

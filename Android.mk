@@ -20,7 +20,7 @@ rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
 
 # Build the modloader shared library
 include $(CLEAR_VARS)
-LOCAL_MODULE := 
+LOCAL_MODULE :=
 include $(CLEAR_VARS)
 # Creating prebuilt for dependency: modloader - version: 1.0.4
 include $(CLEAR_VARS)
